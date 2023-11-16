@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace WebStore.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20231112204702_neww")]
-    partial class neww
+    [Migration("20231116184935_fixedprodrelationn")]
+    partial class fixedprodrelationn
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -198,6 +198,9 @@ namespace WebStore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<int>("CatID")
+                        .HasColumnType("int");
+
                     b.Property<float>("Price")
                         .HasColumnType("float");
 
@@ -353,7 +356,7 @@ namespace WebStore.Migrations
             modelBuilder.Entity("WebStore.Models.Product", b =>
                 {
                     b.HasOne("WebStore.Models.Category", "category")
-                        .WithMany()
+                        .WithMany("Products")
                         .HasForeignKey("categoryCatId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -402,6 +405,11 @@ namespace WebStore.Migrations
             modelBuilder.Entity("WebStore.Models.Branch", b =>
                 {
                     b.Navigation("employees");
+                });
+
+            modelBuilder.Entity("WebStore.Models.Category", b =>
+                {
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("WebStore.Models.Customer", b =>

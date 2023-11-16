@@ -3,7 +3,6 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using WebStore.Models;
 
 #nullable disable
 
@@ -196,6 +195,9 @@ namespace WebStore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<int>("CatID")
+                        .HasColumnType("int");
+
                     b.Property<float>("Price")
                         .HasColumnType("float");
 
@@ -351,7 +353,7 @@ namespace WebStore.Migrations
             modelBuilder.Entity("WebStore.Models.Product", b =>
                 {
                     b.HasOne("WebStore.Models.Category", "category")
-                        .WithMany()
+                        .WithMany("Products")
                         .HasForeignKey("categoryCatId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -400,6 +402,11 @@ namespace WebStore.Migrations
             modelBuilder.Entity("WebStore.Models.Branch", b =>
                 {
                     b.Navigation("employees");
+                });
+
+            modelBuilder.Entity("WebStore.Models.Category", b =>
+                {
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("WebStore.Models.Customer", b =>

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebStore.Models
 {
@@ -12,7 +13,9 @@ namespace WebStore.Models
         [Required]  
         public float Price { get; set; }
 
-
+        [ForeignKey("Category")]
+        public int CatID { get; set;}
+    
         [Required]
         public Category category { get; set; }
         [Required]

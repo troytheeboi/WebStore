@@ -8,13 +8,13 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebStore.Models;
 
-namespace WebStore.Views.Products
+namespace WebStore.Pages.Products
 {
     public class EditModel : PageModel
     {
-        private readonly WebStore.Models.MyDbContext _context;
+        private readonly MyDbContext _context;
 
-        public EditModel(WebStore.Models.MyDbContext context)
+        public EditModel(MyDbContext context)
         {
             _context = context;
         }

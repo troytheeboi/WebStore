@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using MySqlConnector;
-using WebStore.Models;
+using WebStore;
 
 var builder = WebApplication.CreateBuilder(args);
 

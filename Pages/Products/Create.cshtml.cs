@@ -7,13 +7,13 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using WebStore.Models;
 
-namespace WebStore.Views.Products
+namespace WebStore.Pages.Products
 {
     public class CreateModel : PageModel
     {
-        private readonly WebStore.Models.MyDbContext _context;
+        private readonly MyDbContext _context;
 
-        public CreateModel(WebStore.Models.MyDbContext context)
+        public CreateModel(MyDbContext context)
         {
             _context = context;
         }

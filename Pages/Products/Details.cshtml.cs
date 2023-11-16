@@ -7,13 +7,13 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using WebStore.Models;
 
-namespace WebStore.Views.Products
+namespace WebStore.Pages.Products
 {
     public class DetailsModel : PageModel
     {
-        private readonly WebStore.Models.MyDbContext _context;
+        private readonly MyDbContext _context;
 
-        public DetailsModel(WebStore.Models.MyDbContext context)
+        public DetailsModel(MyDbContext context)
         {
             _context = context;
         }

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace WebStore.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20231112204702_neww")]
-    partial class neww
+    [Migration("20231116184510_fixedprodrelation")]
+    partial class fixedprodrelation
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -196,6 +196,9 @@ namespace WebStore.Migrations
                 {
                     b.Property<int>("ProdId")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("CatID")
                         .HasColumnType("int");
 
                     b.Property<float>("Price")

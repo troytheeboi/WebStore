@@ -11,6 +11,8 @@ namespace WebStore.Models
         [Required]
         public string CatDescription { get; set; }
 
+        public List<Product> Products { get; set; }
+
         public Category(int id, string name,string desc) {
             
             CatId = id; 
