@@ -4,14 +4,15 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using WebStore;
 
 #nullable disable
 
 namespace WebStore.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20231116184935_fixedprodrelationn")]
-    partial class fixedprodrelationn
+    [Migration("20231117214233_proddmnnjmlmn")]
+    partial class proddmnnjmlmn
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -198,7 +199,7 @@ namespace WebStore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("CatID")
+                    b.Property<int>("CategoryID")
                         .HasColumnType("int");
 
                     b.Property<float>("Price")
@@ -208,17 +209,14 @@ namespace WebStore.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("categoryCatId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("supplierId")
+                    b.Property<int>("SupplierID")
                         .HasColumnType("int");
 
                     b.HasKey("ProdId");
 
-                    b.HasIndex("categoryCatId");
+                    b.HasIndex("CategoryID");
 
-                    b.HasIndex("supplierId");
+                    b.HasIndex("SupplierID");
 
                     b.ToTable("Products");
                 });
@@ -357,13 +355,13 @@ namespace WebStore.Migrations
                 {
                     b.HasOne("WebStore.Models.Category", "category")
                         .WithMany("Products")
-                        .HasForeignKey("categoryCatId")
+                        .HasForeignKey("CategoryID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("WebStore.Models.Supplier", "supplier")
                         .WithMany()
-                        .HasForeignKey("supplierId")
+                        .HasForeignKey("SupplierID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

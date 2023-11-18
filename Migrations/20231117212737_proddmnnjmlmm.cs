@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WebStore.Migrations
 {
     /// <inheritdoc />
-    public partial class @new : Migration
+    public partial class proddmnnjmlmm : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -188,21 +188,21 @@ namespace WebStore.Migrations
                     ProdName = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Price = table.Column<float>(type: "float", nullable: false),
-                    categoryCatId = table.Column<int>(type: "int", nullable: false),
-                    supplierId = table.Column<int>(type: "int", nullable: false)
+                    CategoryID = table.Column<int>(type: "int", nullable: false),
+                    SupplierID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Products", x => x.ProdId);
                     table.ForeignKey(
-                        name: "FK_Products_Categories_categoryCatId",
-                        column: x => x.categoryCatId,
+                        name: "FK_Products_Categories_CategoryID",
+                        column: x => x.CategoryID,
                         principalTable: "Categories",
                         principalColumn: "CatId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Products_Suppliers_supplierId",
-                        column: x => x.supplierId,
+                        name: "FK_Products_Suppliers_SupplierID",
+                        column: x => x.SupplierID,
                         principalTable: "Suppliers",
                         principalColumn: "supplierId",
                         onDelete: ReferentialAction.Cascade);
@@ -310,14 +310,14 @@ namespace WebStore.Migrations
                 column: "PaymentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_categoryCatId",
+                name: "IX_Products_CategoryID",
                 table: "Products",
-                column: "categoryCatId");
+                column: "CategoryID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_supplierId",
+                name: "IX_Products_SupplierID",
                 table: "Products",
-                column: "supplierId");
+                column: "SupplierID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProductShoppingCart_shoppingCartsCartId",

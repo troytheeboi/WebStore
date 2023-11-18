@@ -27,9 +27,14 @@
                 <span asp-validation-for="Product.Price" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Product.CatID" class="control-label"></label>
-                <input asp-for="Product.CatID" class="form-control" />
-                <span asp-validation-for="Product.CatID" class="text-danger"></span>
+                <label asp-for="Product.CategoryID" class="control-label"></label>
+                <select asp-for="Product.CategoryID" class="form-control" asp-items="ViewBag.CategoryID"></select>
+                <span asp-validation-for="Product.CategoryID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Product.SupplierID" class="control-label"></label>
+                <select asp-for="Product.SupplierID" class="form-control" asp-items="ViewBag.SupplierID"></select>
+                <span asp-validation-for="Product.SupplierID" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

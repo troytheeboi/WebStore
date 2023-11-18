@@ -23,15 +23,5 @@ namespace WebStore.Models
 
         public List<Product> products { get; set; }
 
-        public Order(int id,DateTime dateTime,float tot)
-        {
-            OrderId = id;
-            OrderDate = dateTime;
-            Total = tot;
-        }
-
-        public Order(){}
-
-
     }
 }

@@ -14,13 +14,5 @@ namespace WebStore.Models
         
         public Product product { get; set; }
 
-        public Review(int id,DateTime time,string stat)
-        {
-            ReviewId = id;
-            ReviewTime = time;
-            Status = stat;
-        }
-
-        public Review() { }
     }
 }

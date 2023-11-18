@@ -16,15 +16,5 @@ namespace WebStore.Models
 
         public List<Product> products { get; set; }
 
-        public ShoppingCart(int cartId, DateTime date,int customerID)
-        {
-            CartId = cartId;
-            DateCreated = date;
-            CustomerId = customerID;
-        }
-
-        public ShoppingCart() { }
-
-
     }
 }

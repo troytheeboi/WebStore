@@ -5,15 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using WebStore;
 using WebStore.Models;
 
 namespace WebStore.Pages.Products
 {
     public class IndexModel : PageModel
     {
-        private readonly MyDbContext _context;
+        private readonly WebStore.MyDbContext _context;
 
-        public IndexModel(MyDbContext context)
+        public IndexModel(WebStore.MyDbContext context)
         {
             _context = context;
         }
@@ -24,7 +25,9 @@ namespace WebStore.Pages.Products
         {
             if (_context.Products != null)
             {
-                Product = await _context.Products.ToListAsync();
+                Product = await _context.Products
+                .Include(p => p.category)
+                .Include(p => p.supplier).ToListAsync();
             }
         }
     }

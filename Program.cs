@@ -8,10 +8,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddTransient<MySqlConnection>(_ => new MySqlConnection(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+var constring = builder.Configuration.GetConnectionString("DefaultConnection");
 // Register MyDbContext as a service
 builder.Services.AddDbContext<MyDbContext>(options =>
-    options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"), new MariaDbServerVersion(new Version(10, 3, 29)))
+    options.UseMySql(constring, ServerVersion.AutoDetect(constring))
 );
 
 builder.Services.AddRazorPages();

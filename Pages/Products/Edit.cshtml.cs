@@ -6,15 +6,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using WebStore;
 using WebStore.Models;
 
 namespace WebStore.Pages.Products
 {
     public class EditModel : PageModel
     {
-        private readonly MyDbContext _context;
+        private readonly WebStore.MyDbContext _context;
 
-        public EditModel(MyDbContext context)
+        public EditModel(WebStore.MyDbContext context)
         {
             _context = context;
         }
@@ -35,6 +36,8 @@ namespace WebStore.Pages.Products
                 return NotFound();
             }
             Product = product;
+           ViewData["CategoryID"] = new SelectList(_context.Categories, "CatId", "CatDescription");
+           ViewData["SupplierID"] = new SelectList(_context.Suppliers, "supplierId", "supplierId");
             return Page();
         }
 

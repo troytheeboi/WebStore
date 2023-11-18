@@ -26,10 +26,16 @@
             @Html.DisplayFor(model => model.Product.Price)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Product.CatID)
+            @Html.DisplayNameFor(model => model.Product.category)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Product.CatID)
+            @Html.DisplayFor(model => model.Product.category.CatDescription)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Product.supplier)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Product.supplier.supplierId)
         </dd>
     </dl>
 </div>

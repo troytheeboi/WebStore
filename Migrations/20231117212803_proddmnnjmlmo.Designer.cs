@@ -4,14 +4,15 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using WebStore;
 
 #nullable disable
 
 namespace WebStore.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20231116184510_fixedprodrelation")]
-    partial class fixedprodrelation
+    [Migration("20231117212803_proddmnnjmlmo")]
+    partial class proddmnnjmlmo
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -198,7 +199,7 @@ namespace WebStore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("CatID")
+                    b.Property<int>("CategoryID")
                         .HasColumnType("int");
 
                     b.Property<float>("Price")
@@ -208,17 +209,14 @@ namespace WebStore.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("categoryCatId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("supplierId")
+                    b.Property<int>("SupplierID")
                         .HasColumnType("int");
 
                     b.HasKey("ProdId");
 
-                    b.HasIndex("categoryCatId");
+                    b.HasIndex("CategoryID");
 
-                    b.HasIndex("supplierId");
+                    b.HasIndex("SupplierID");
 
                     b.ToTable("Products");
                 });
@@ -356,14 +354,14 @@ namespace WebStore.Migrations
             modelBuilder.Entity("WebStore.Models.Product", b =>
                 {
                     b.HasOne("WebStore.Models.Category", "category")
-                        .WithMany()
-                        .HasForeignKey("categoryCatId")
+                        .WithMany("Products")
+                        .HasForeignKey("CategoryID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("WebStore.Models.Supplier", "supplier")
                         .WithMany()
-                        .HasForeignKey("supplierId")
+                        .HasForeignKey("SupplierID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -405,6 +403,11 @@ namespace WebStore.Migrations
             modelBuilder.Entity("WebStore.Models.Branch", b =>
                 {
                     b.Navigation("employees");
+                });
+
+            modelBuilder.Entity("WebStore.Models.Category", b =>
+                {
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("WebStore.Models.Customer", b =>

@@ -19,15 +19,5 @@ namespace WebStore.Models
 
         public List<Order> orders { get; set; }
 
-        public Customer(int id, string first,string last, int phone)
-        {
-            CustomerId = id;
-            FirstName = first;
-            LastName = last;
-            Phone = phone;
-        }
-
-        public Customer() { }
-
     }
 }

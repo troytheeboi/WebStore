@@ -17,13 +17,5 @@ namespace WebStore.Models
         [ForeignKey("Employee")]
         public int? ManagerID { get; set; }
 
-        public Branch(int id,string loc,int cap)
-        {
-            BranchId = id;
-            Location = loc;
-            capacity = cap;
-        }
-
-        public Branch() { }
     }
 }

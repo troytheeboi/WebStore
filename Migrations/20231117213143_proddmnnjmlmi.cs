@@ -5,7 +5,7 @@
 namespace WebStore.Migrations
 {
     /// <inheritdoc />
-    public partial class fixedprodrelationn : Migration
+    public partial class proddmnnjmlmi : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

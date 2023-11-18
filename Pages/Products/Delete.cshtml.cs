@@ -5,15 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using WebStore;
 using WebStore.Models;
 
 namespace WebStore.Pages.Products
 {
     public class DeleteModel : PageModel
     {
-        private readonly MyDbContext _context;
+        private readonly WebStore.MyDbContext _context;
 
-        public DeleteModel(MyDbContext context)
+        public DeleteModel(WebStore.MyDbContext context)
         {
             _context = context;
         }

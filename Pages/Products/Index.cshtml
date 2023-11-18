@@ -22,7 +22,10 @@
                 @Html.DisplayNameFor(model => model.Product[0].Price)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Product[0].CatID)
+                @Html.DisplayNameFor(model => model.Product[0].category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].supplier)
             </th>
             <th></th>
         </tr>
@@ -37,7 +40,10 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CatID)
+                @Html.DisplayFor(modelItem => item.category.CatDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.supplier.supplierId)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.ProdId">Edit</a> |

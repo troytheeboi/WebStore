@@ -11,16 +11,5 @@ namespace WebStore.Models
         public int phoneNumber { get; set; }
         public string supplierAddress { get; set;}
 
-        public Supplier(int id,string name,int num,string add) {
-            
-            supplierId = id;
-            supplierName = name;
-            phoneNumber = num;
-            supplierAddress = add;
-        }
-
-        public Supplier() { }
-
-
     }
 }
