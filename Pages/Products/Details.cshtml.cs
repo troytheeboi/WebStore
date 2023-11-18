@@ -19,7 +19,7 @@ namespace WebStore.Pages.Products
             _context = context;
         }
 
-      public Product Product { get; set; } = default!; 
+      public ProductEntity ProductEntity { get; set; } = default!; 
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,14 +28,14 @@ namespace WebStore.Pages.Products
                 return NotFound();
             }
 
-            var product = await _context.Products.FirstOrDefaultAsync(m => m.ProdId == id);
-            if (product == null)
+            var productentity = await _context.Products.FirstOrDefaultAsync(m => m.ProdId == id);
+            if (productentity == null)
             {
                 return NotFound();
             }
             else 
             {
-                Product = product;
+                ProductEntity = productentity;
             }
             return Page();
         }

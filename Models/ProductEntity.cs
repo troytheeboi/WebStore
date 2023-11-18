@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebStore.Models
 {
-    public class Product
+    public class ProductEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -23,16 +23,16 @@ namespace WebStore.Models
         public int SupplierID { get; set; }
 
         
-        public virtual Category category { get; set; }
+        public virtual CategoryEntity category { get; set; }
         
-        public virtual Supplier supplier { get; set; }
+        public virtual SupplierEntity supplier { get; set; }
 
 
-        public List<Review> reviews { get; set; }
+        public List<ReviewEntity> reviews { get; set; }
 
-        public List<ShoppingCart> shoppingCarts { get; set; }
+        public List<ShoppingCartEntity> shoppingCarts { get; set; }
 
-        public List<Order> orders { get; set; }
+        public List<OrderEntity> orders { get; set; }
 
     }
 }

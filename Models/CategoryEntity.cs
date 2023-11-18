@@ -2,7 +2,7 @@
 
 namespace WebStore.Models
 {
-    public class Category
+    public class CategoryEntity
     {
         [Key]
         public int CatId { get; set; }
@@ -11,7 +11,7 @@ namespace WebStore.Models
         [Required]
         public string CatDescription { get; set; }
 
-        public virtual List<Product> Products { get; set; }
+        public virtual List<ProductEntity> Products { get; set; }
 
     }
 }

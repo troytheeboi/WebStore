@@ -20,7 +20,7 @@ namespace WebStore.Pages.Products
         }
 
         [BindProperty]
-      public Product Product { get; set; } = default!;
+      public ProductEntity ProductEntity { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,15 +29,15 @@ namespace WebStore.Pages.Products
                 return NotFound();
             }
 
-            var product = await _context.Products.FirstOrDefaultAsync(m => m.ProdId == id);
+            var productentity = await _context.Products.FirstOrDefaultAsync(m => m.ProdId == id);
 
-            if (product == null)
+            if (productentity == null)
             {
                 return NotFound();
             }
             else 
             {
-                Product = product;
+                ProductEntity = productentity;
             }
             return Page();
         }
@@ -48,12 +48,12 @@ namespace WebStore.Pages.Products
             {
                 return NotFound();
             }
-            var product = await _context.Products.FindAsync(id);
+            var productentity = await _context.Products.FindAsync(id);
 
-            if (product != null)
+            if (productentity != null)
             {
-                Product = product;
-                _context.Products.Remove(Product);
+                ProductEntity = productentity;
+                _context.Products.Remove(ProductEntity);
                 await _context.SaveChangesAsync();
             }
 

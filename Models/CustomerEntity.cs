@@ -2,7 +2,7 @@
 
 namespace WebStore.Models
 {
-    public class Customer
+    public class CustomerEntity
     {
         [Key]
         public int CustomerId { get; set; }
@@ -13,11 +13,11 @@ namespace WebStore.Models
 
         public int Phone { get; set; }
 
-        public List<Review> reviews { get; set; }
+        public List<ReviewEntity> reviews { get; set; }
 
-        public ShoppingCart cart { get; set; }
+        public ShoppingCartEntity cart { get; set; }
 
-        public List<Order> orders { get; set; }
+        public List<OrderEntity> orders { get; set; }
 
     }
 }

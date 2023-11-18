@@ -2,7 +2,7 @@
 
 namespace WebStore.Models
 {
-    public class Payment
+    public class PaymentEntity
     {
         [Key]
         public int PaymentId { get; set; }

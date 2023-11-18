@@ -19,13 +19,13 @@ namespace WebStore.Pages.Products
             _context = context;
         }
 
-        public IList<Product> Product { get;set; } = default!;
+        public IList<ProductEntity> ProductEntity { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
             if (_context.Products != null)
             {
-                Product = await _context.Products
+                ProductEntity = await _context.Products
                 .Include(p => p.category)
                 .Include(p => p.supplier).ToListAsync();
             }

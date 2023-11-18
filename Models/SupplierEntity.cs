@@ -2,7 +2,7 @@
 
 namespace WebStore.Models
 {
-    public class Supplier
+    public class SupplierEntity
     {
         [Key]
         public int supplierId { get; set; }

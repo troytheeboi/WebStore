@@ -21,7 +21,7 @@ namespace WebStore.Pages.Products
         }
 
         [BindProperty]
-        public Product Product { get; set; } = default!;
+        public ProductEntity ProductEntity { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,14 +30,14 @@ namespace WebStore.Pages.Products
                 return NotFound();
             }
 
-            var product =  await _context.Products.FirstOrDefaultAsync(m => m.ProdId == id);
-            if (product == null)
+            var productentity =  await _context.Products.FirstOrDefaultAsync(m => m.ProdId == id);
+            if (productentity == null)
             {
                 return NotFound();
             }
-            Product = product;
+            ProductEntity = productentity;
            ViewData["CategoryID"] = new SelectList(_context.Categories, "CatId", "CatDescription");
-           ViewData["SupplierID"] = new SelectList(_context.Suppliers, "supplierId", "supplierId");
+           ViewData["SupplierID"] = new SelectList(_context.Suppliers, "supplierId", "supplierName");
             return Page();
         }
 
@@ -45,12 +45,12 @@ namespace WebStore.Pages.Products
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
+        /*    if (!ModelState.IsValid)
             {
                 return Page();
-            }
+            }*/
 
-            _context.Attach(Product).State = EntityState.Modified;
+            _context.Attach(ProductEntity).State = EntityState.Modified;
 
             try
             {
@@ -58,7 +58,7 @@ namespace WebStore.Pages.Products
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ProductExists(Product.ProdId))
+                if (!ProductEntityExists(ProductEntity.ProdId))
                 {
                     return NotFound();
                 }
@@ -71,7 +71,7 @@ namespace WebStore.Pages.Products
             return RedirectToPage("./Index");
         }
 
-        private bool ProductExists(int id)
+        private bool ProductEntityExists(int id)
         {
           return (_context.Products?.Any(e => e.ProdId == id)).GetValueOrDefault();
         }

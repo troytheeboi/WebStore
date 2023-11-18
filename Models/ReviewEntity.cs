@@ -2,7 +2,7 @@
 
 namespace WebStore.Models
 {
-    public class Review
+    public class ReviewEntity
     {
         [Key]
         public int ReviewId { get; set; }
@@ -10,9 +10,9 @@ namespace WebStore.Models
         public DateTime ReviewTime { get; set;}
         [Required]
         public string Status { get; set; }
-        public Customer customer {  get; set; }
+        public CustomerEntity customer {  get; set; }
         
-        public Product product { get; set; }
+        public ProductEntity product { get; set; }
 
     }
 }

@@ -22,29 +22,23 @@ namespace WebStore.Pages.Products
         public IActionResult OnGet()
         {
         ViewData["CategoryID"] = new SelectList(_context.Categories, "CatId", "CatDescription");
-        ViewData["SupplierID"] = new SelectList(_context.Suppliers, "supplierId", "supplierId");
+        ViewData["SupplierID"] = new SelectList(_context.Suppliers, "supplierId", "supplierName");
             return Page();
         }
 
         [BindProperty]
-        public Product Product { get; set; } = default!;
+        public ProductEntity ProductEntity { get; set; } = default!;
         
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (/*!ModelState.IsValid || */_context.Products == null || Product == null)
+          if (/*!ModelState.IsValid ||*/ _context.Products == null || ProductEntity == null)
             {
-                Console.WriteLine("here");
-                Console.WriteLine(ModelState.IsValid);
-                Console.WriteLine(_context.Products==null);
-                Console.WriteLine(Product==null);
                 return Page();
             }
 
-            Console.WriteLine("here1");
-
-            _context.Products.Add(Product);
+            _context.Products.Add(ProductEntity);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

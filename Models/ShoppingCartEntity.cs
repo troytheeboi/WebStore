@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebStore.Models
 {
-    public class ShoppingCart
+    public class ShoppingCartEntity
     {
         [Key]
         public int CartId { get; set; }
@@ -12,9 +12,9 @@ namespace WebStore.Models
 
         [ForeignKey("Customer")]
         public int CustomerId { get; set; }
-        public Customer Customer { get; set; }
+        public CustomerEntity Customer { get; set; }
 
-        public List<Product> products { get; set; }
+        public List<ProductEntity> products { get; set; }
 
     }
 }

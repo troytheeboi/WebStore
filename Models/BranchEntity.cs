@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebStore.Models
 {
-    public class Branch
+    public class BranchEntity
     {
         [Key]
         public int BranchId { get; set; }
@@ -12,7 +12,7 @@ namespace WebStore.Models
         [Required]
         public int capacity { get; set; }
 
-        public List<Employee> employees { get; set; }
+        public List<EmployeeEntity> employees { get; set; }
 
         [ForeignKey("Employee")]
         public int? ManagerID { get; set; }

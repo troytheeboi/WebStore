@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebStore.Models
 {
-    public class Order
+    public class OrderEntity
     {
         [Key]
         public int OrderId { get; set; }
@@ -17,11 +17,11 @@ namespace WebStore.Models
         public int CustomerId { get; set; }
 
         
-        public Customer customer { get; set; }
+        public CustomerEntity customer { get; set; }
         [Required]
-        public Payment payment { get; set; }
+        public PaymentEntity payment { get; set; }
 
-        public List<Product> products { get; set; }
+        public List<ProductEntity> products { get; set; }
 
     }
 }
