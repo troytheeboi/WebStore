@@ -11,7 +11,7 @@ builder.Services.AddTransient<MySqlConnection>(_ => new MySqlConnection(builder.
 var constring = builder.Configuration.GetConnectionString("DefaultConnection");
 // Register MyDbContext as a service
 builder.Services.AddDbContext<MyDbContext>(options =>
-    options.UseMySql(constring, ServerVersion.AutoDetect(constring))
+    options.UseNpgsql(constring)
 );
 
 builder.Services.AddRazorPages();

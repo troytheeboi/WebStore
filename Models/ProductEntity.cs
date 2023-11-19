@@ -15,17 +15,22 @@ namespace WebStore.Models
         public float Price { get; set; }
 
         [Required]
-        [ForeignKey("Category")]
+        [ForeignKey("CategoryEntity")]
         public int CategoryID { get; set; }
 
         [Required]
-        [ForeignKey("Supplier")]
+        [ForeignKey("SupplierEntity")]
         public int SupplierID { get; set; }
 
-        
+        [Required]
+        [ForeignKey("BranchEntity")]
+        public int BranchID { get; set; }
+
         public virtual CategoryEntity category { get; set; }
         
         public virtual SupplierEntity supplier { get; set; }
+
+        public virtual BranchEntity branch { get; set; }
 
 
         public List<ReviewEntity> reviews { get; set; }

@@ -10,7 +10,7 @@ namespace WebStore.Models
         [Required]
         public DateTime DateCreated { get; set; }
 
-        [ForeignKey("Customer")]
+        [ForeignKey("CustomerEntity")]
         public int CustomerId { get; set; }
         public CustomerEntity Customer { get; set; }
 

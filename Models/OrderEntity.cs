@@ -13,8 +13,11 @@ namespace WebStore.Models
         [Required]
         public float Total { get; set; }
 
-        [ForeignKey("Customer")]
+        [ForeignKey("CustomerEntity")]
         public int CustomerId { get; set; }
+
+        [Required]
+        public string Status { get; set; }
 
         
         public CustomerEntity customer { get; set; }

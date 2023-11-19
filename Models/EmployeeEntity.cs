@@ -16,7 +16,7 @@ namespace WebStore.Models
         [Required]
         public int Salary { get; set; }
 
-        [ForeignKey("Branch")]
+        [ForeignKey("BranchEntity")]
         public int BranchId { get; set; } 
         public BranchEntity branch { get; set; }
 

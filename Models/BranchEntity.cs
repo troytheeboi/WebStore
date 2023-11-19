@@ -14,7 +14,9 @@ namespace WebStore.Models
 
         public List<EmployeeEntity> employees { get; set; }
 
-        [ForeignKey("Employee")]
+        public List<ProductEntity> products { get; set; }
+
+        [ForeignKey("EmployeeEntity")]
         public int? ManagerID { get; set; }
 
     }
