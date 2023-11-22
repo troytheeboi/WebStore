@@ -1,11 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using WebStore.Models.Bases;
 
 namespace WebStore.Models
 {
-    public class CategoryEntity
+    public class CategoryEntity:ParentEntity
     {
-        [Key]
-        public int CatId { get; set; }
         [Required]
         public string CatName { get; set; }
         [Required]

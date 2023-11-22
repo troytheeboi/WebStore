@@ -1,13 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using WebStore.Models.Bases;
 
 namespace WebStore.Models
 {
-    public class OrderEntity
+    public class OrderEntity:BaseEntity
     {
-        [Key]
-        public int OrderId { get; set; }
-
         [Required]
         public DateTime OrderDate { get; set; }
         [Required]

@@ -35,7 +35,7 @@ namespace WebStore.Controllers
             }
 
             var categoryEntity = await _context.Categories
-                .FirstOrDefaultAsync(m => m.CatId == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (categoryEntity == null)
             {
                 return NotFound();
@@ -55,7 +55,7 @@ namespace WebStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CatId,CatName,CatDescription")] CategoryEntity categoryEntity)
+        public async Task<IActionResult> Create([Bind("Id,CatName,CatDescription")] CategoryEntity categoryEntity)
         {
             if (true)
             {
@@ -87,9 +87,9 @@ namespace WebStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CatId,CatName,CatDescription")] CategoryEntity categoryEntity)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,CatName,CatDescription")] CategoryEntity categoryEntity)
         {
-            if (id != categoryEntity.CatId)
+            if (id != categoryEntity.Id)
             {
                 return NotFound();
             }
@@ -103,7 +103,7 @@ namespace WebStore.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CategoryEntityExists(categoryEntity.CatId))
+                    if (!CategoryEntityExists(categoryEntity.Id))
                     {
                         return NotFound();
                     }
@@ -126,7 +126,7 @@ namespace WebStore.Controllers
             }
 
             var categoryEntity = await _context.Categories
-                .FirstOrDefaultAsync(m => m.CatId == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (categoryEntity == null)
             {
                 return NotFound();
@@ -156,7 +156,7 @@ namespace WebStore.Controllers
 
         private bool CategoryEntityExists(int id)
         {
-            return (_context.Categories?.Any(e => e.CatId == id)).GetValueOrDefault();
+            return (_context.Categories?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

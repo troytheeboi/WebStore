@@ -1,11 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using WebStore.Models.Bases;
 
 namespace WebStore.Models
 {
-    public class ReviewEntity
+    public class ReviewEntity:ParentEntity
     {
-        [Key]
-        public int ReviewId { get; set; }
         [Required]
         public DateTime ReviewTime { get; set;}
         [Required]

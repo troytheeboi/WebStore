@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace WebStore.Migrations
 {
     /// <inheritdoc />
-    public partial class postgres : Migration
+    public partial class postgresBases : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,7 +16,7 @@ namespace WebStore.Migrations
                 name: "branches",
                 columns: table => new
                 {
-                    BranchId = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Location = table.Column<string>(type: "text", nullable: false),
                     capacity = table.Column<int>(type: "integer", nullable: false),
@@ -24,58 +24,61 @@ namespace WebStore.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_branches", x => x.BranchId);
+                    table.PrimaryKey("PK_branches", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Categories",
                 columns: table => new
                 {
-                    CatId = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     CatName = table.Column<string>(type: "text", nullable: false),
                     CatDescription = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Categories", x => x.CatId);
+                    table.PrimaryKey("PK_Categories", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Customers",
                 columns: table => new
                 {
-                    CustomerId = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Phone = table.Column<int>(type: "integer", nullable: false),
                     FirstName = table.Column<string>(type: "text", nullable: false),
-                    LastName = table.Column<string>(type: "text", nullable: false),
-                    Phone = table.Column<int>(type: "integer", nullable: false)
+                    LastName = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Customers", x => x.CustomerId);
+                    table.PrimaryKey("PK_Customers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "payments",
                 columns: table => new
                 {
-                    PaymentId = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Amount = table.Column<float>(type: "real", nullable: false),
                     PaymentDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    PaymentMethod = table.Column<string>(type: "text", nullable: false)
+                    PaymentMethod = table.Column<string>(type: "text", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    LastModified = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    EmployeeId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_payments", x => x.PaymentId);
+                    table.PrimaryKey("PK_payments", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Suppliers",
                 columns: table => new
                 {
-                    supplierId = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     supplierName = table.Column<string>(type: "text", nullable: false),
                     phoneNumber = table.Column<int>(type: "integer", nullable: false),
@@ -83,29 +86,29 @@ namespace WebStore.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Suppliers", x => x.supplierId);
+                    table.PrimaryKey("PK_Suppliers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "employees",
                 columns: table => new
                 {
-                    EmployeeId = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    FirstName = table.Column<string>(type: "text", nullable: false),
-                    LastName = table.Column<string>(type: "text", nullable: false),
                     Title = table.Column<string>(type: "text", nullable: false),
                     Salary = table.Column<int>(type: "integer", nullable: false),
-                    BranchId = table.Column<int>(type: "integer", nullable: false)
+                    BranchId = table.Column<int>(type: "integer", nullable: false),
+                    FirstName = table.Column<string>(type: "text", nullable: false),
+                    LastName = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_employees", x => x.EmployeeId);
+                    table.PrimaryKey("PK_employees", x => x.Id);
                     table.ForeignKey(
                         name: "FK_employees_branches_BranchId",
                         column: x => x.BranchId,
                         principalTable: "branches",
-                        principalColumn: "BranchId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -113,19 +116,19 @@ namespace WebStore.Migrations
                 name: "shoppingCarts",
                 columns: table => new
                 {
-                    CartId = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     CustomerId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_shoppingCarts", x => x.CartId);
+                    table.PrimaryKey("PK_shoppingCarts", x => x.Id);
                     table.ForeignKey(
                         name: "FK_shoppingCarts_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
-                        principalColumn: "CustomerId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -133,28 +136,31 @@ namespace WebStore.Migrations
                 name: "Orders",
                 columns: table => new
                 {
-                    OrderId = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     OrderDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Total = table.Column<float>(type: "real", nullable: false),
                     CustomerId = table.Column<int>(type: "integer", nullable: false),
                     Status = table.Column<string>(type: "text", nullable: false),
-                    PaymentId = table.Column<int>(type: "integer", nullable: false)
+                    paymentId = table.Column<int>(type: "integer", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    LastModified = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    EmployeeId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Orders", x => x.OrderId);
+                    table.PrimaryKey("PK_Orders", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Orders_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
-                        principalColumn: "CustomerId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Orders_payments_PaymentId",
-                        column: x => x.PaymentId,
+                        name: "FK_Orders_payments_paymentId",
+                        column: x => x.paymentId,
                         principalTable: "payments",
-                        principalColumn: "PaymentId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -162,34 +168,37 @@ namespace WebStore.Migrations
                 name: "Products",
                 columns: table => new
                 {
-                    ProdId = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     ProdName = table.Column<string>(type: "text", nullable: false),
                     Price = table.Column<float>(type: "real", nullable: false),
                     CategoryID = table.Column<int>(type: "integer", nullable: false),
                     SupplierID = table.Column<int>(type: "integer", nullable: false),
-                    BranchID = table.Column<int>(type: "integer", nullable: false)
+                    BranchID = table.Column<int>(type: "integer", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    LastModified = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    EmployeeId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Products", x => x.ProdId);
+                    table.PrimaryKey("PK_Products", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Products_Categories_CategoryID",
                         column: x => x.CategoryID,
                         principalTable: "Categories",
-                        principalColumn: "CatId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Products_Suppliers_SupplierID",
                         column: x => x.SupplierID,
                         principalTable: "Suppliers",
-                        principalColumn: "supplierId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Products_branches_BranchID",
                         column: x => x.BranchID,
                         principalTable: "branches",
-                        principalColumn: "BranchId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -197,23 +206,23 @@ namespace WebStore.Migrations
                 name: "OrderEntityProductEntity",
                 columns: table => new
                 {
-                    ordersOrderId = table.Column<int>(type: "integer", nullable: false),
-                    productsProdId = table.Column<int>(type: "integer", nullable: false)
+                    ordersId = table.Column<int>(type: "integer", nullable: false),
+                    productsId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrderEntityProductEntity", x => new { x.ordersOrderId, x.productsProdId });
+                    table.PrimaryKey("PK_OrderEntityProductEntity", x => new { x.ordersId, x.productsId });
                     table.ForeignKey(
-                        name: "FK_OrderEntityProductEntity_Orders_ordersOrderId",
-                        column: x => x.ordersOrderId,
+                        name: "FK_OrderEntityProductEntity_Orders_ordersId",
+                        column: x => x.ordersId,
                         principalTable: "Orders",
-                        principalColumn: "OrderId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_OrderEntityProductEntity_Products_productsProdId",
-                        column: x => x.productsProdId,
+                        name: "FK_OrderEntityProductEntity_Products_productsId",
+                        column: x => x.productsId,
                         principalTable: "Products",
-                        principalColumn: "ProdId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -221,23 +230,23 @@ namespace WebStore.Migrations
                 name: "ProductEntityShoppingCartEntity",
                 columns: table => new
                 {
-                    productsProdId = table.Column<int>(type: "integer", nullable: false),
-                    shoppingCartsCartId = table.Column<int>(type: "integer", nullable: false)
+                    productsId = table.Column<int>(type: "integer", nullable: false),
+                    shoppingCartsId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductEntityShoppingCartEntity", x => new { x.productsProdId, x.shoppingCartsCartId });
+                    table.PrimaryKey("PK_ProductEntityShoppingCartEntity", x => new { x.productsId, x.shoppingCartsId });
                     table.ForeignKey(
-                        name: "FK_ProductEntityShoppingCartEntity_Products_productsProdId",
-                        column: x => x.productsProdId,
+                        name: "FK_ProductEntityShoppingCartEntity_Products_productsId",
+                        column: x => x.productsId,
                         principalTable: "Products",
-                        principalColumn: "ProdId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ProductEntityShoppingCartEntity_shoppingCarts_shoppingCarts~",
-                        column: x => x.shoppingCartsCartId,
+                        column: x => x.shoppingCartsId,
                         principalTable: "shoppingCarts",
-                        principalColumn: "CartId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -245,27 +254,27 @@ namespace WebStore.Migrations
                 name: "reviews",
                 columns: table => new
                 {
-                    ReviewId = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     ReviewTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Status = table.Column<string>(type: "text", nullable: false),
-                    CustomerId = table.Column<int>(type: "integer", nullable: false),
-                    productProdId = table.Column<int>(type: "integer", nullable: false)
+                    customerId = table.Column<int>(type: "integer", nullable: false),
+                    productId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_reviews", x => x.ReviewId);
+                    table.PrimaryKey("PK_reviews", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_reviews_Customers_CustomerId",
-                        column: x => x.CustomerId,
+                        name: "FK_reviews_Customers_customerId",
+                        column: x => x.customerId,
                         principalTable: "Customers",
-                        principalColumn: "CustomerId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_reviews_Products_productProdId",
-                        column: x => x.productProdId,
+                        name: "FK_reviews_Products_productId",
+                        column: x => x.productId,
                         principalTable: "Products",
-                        principalColumn: "ProdId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -275,9 +284,9 @@ namespace WebStore.Migrations
                 column: "BranchId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderEntityProductEntity_productsProdId",
+                name: "IX_OrderEntityProductEntity_productsId",
                 table: "OrderEntityProductEntity",
-                column: "productsProdId");
+                column: "productsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_CustomerId",
@@ -285,14 +294,14 @@ namespace WebStore.Migrations
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_PaymentId",
+                name: "IX_Orders_paymentId",
                 table: "Orders",
-                column: "PaymentId");
+                column: "paymentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductEntityShoppingCartEntity_shoppingCartsCartId",
+                name: "IX_ProductEntityShoppingCartEntity_shoppingCartsId",
                 table: "ProductEntityShoppingCartEntity",
-                column: "shoppingCartsCartId");
+                column: "shoppingCartsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_BranchID",
@@ -310,14 +319,14 @@ namespace WebStore.Migrations
                 column: "SupplierID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_reviews_CustomerId",
+                name: "IX_reviews_customerId",
                 table: "reviews",
-                column: "CustomerId");
+                column: "customerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_reviews_productProdId",
+                name: "IX_reviews_productId",
                 table: "reviews",
-                column: "productProdId");
+                column: "productId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_shoppingCarts_CustomerId",

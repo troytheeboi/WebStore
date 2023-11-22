@@ -24,41 +24,41 @@ namespace WebStore.Migrations
 
             modelBuilder.Entity("OrderEntityProductEntity", b =>
                 {
-                    b.Property<int>("ordersOrderId")
+                    b.Property<int>("ordersId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("productsProdId")
+                    b.Property<int>("productsId")
                         .HasColumnType("integer");
 
-                    b.HasKey("ordersOrderId", "productsProdId");
+                    b.HasKey("ordersId", "productsId");
 
-                    b.HasIndex("productsProdId");
+                    b.HasIndex("productsId");
 
                     b.ToTable("OrderEntityProductEntity");
                 });
 
             modelBuilder.Entity("ProductEntityShoppingCartEntity", b =>
                 {
-                    b.Property<int>("productsProdId")
+                    b.Property<int>("productsId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("shoppingCartsCartId")
+                    b.Property<int>("shoppingCartsId")
                         .HasColumnType("integer");
 
-                    b.HasKey("productsProdId", "shoppingCartsCartId");
+                    b.HasKey("productsId", "shoppingCartsId");
 
-                    b.HasIndex("shoppingCartsCartId");
+                    b.HasIndex("shoppingCartsId");
 
                     b.ToTable("ProductEntityShoppingCartEntity");
                 });
 
             modelBuilder.Entity("WebStore.Models.BranchEntity", b =>
                 {
-                    b.Property<int>("BranchId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("BranchId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Location")
                         .IsRequired()
@@ -70,18 +70,18 @@ namespace WebStore.Migrations
                     b.Property<int>("capacity")
                         .HasColumnType("integer");
 
-                    b.HasKey("BranchId");
+                    b.HasKey("Id");
 
                     b.ToTable("branches");
                 });
 
             modelBuilder.Entity("WebStore.Models.CategoryEntity", b =>
                 {
-                    b.Property<int>("CatId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("CatId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CatDescription")
                         .IsRequired()
@@ -91,18 +91,18 @@ namespace WebStore.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("CatId");
+                    b.HasKey("Id");
 
                     b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("WebStore.Models.CustomerEntity", b =>
                 {
-                    b.Property<int>("CustomerId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("CustomerId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -115,18 +115,18 @@ namespace WebStore.Migrations
                     b.Property<int>("Phone")
                         .HasColumnType("integer");
 
-                    b.HasKey("CustomerId");
+                    b.HasKey("Id");
 
                     b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("WebStore.Models.EmployeeEntity", b =>
                 {
-                    b.Property<int>("EmployeeId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("EmployeeId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("BranchId")
                         .HasColumnType("integer");
@@ -146,7 +146,7 @@ namespace WebStore.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("EmployeeId");
+                    b.HasKey("Id");
 
                     b.HasIndex("BranchId");
 
@@ -155,20 +155,26 @@ namespace WebStore.Migrations
 
             modelBuilder.Entity("WebStore.Models.OrderEntity", b =>
                 {
-                    b.Property<int>("OrderId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("OrderId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("CustomerId")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime>("OrderDate")
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("LastModified")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("PaymentId")
-                        .HasColumnType("integer");
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Status")
                         .IsRequired()
@@ -177,25 +183,37 @@ namespace WebStore.Migrations
                     b.Property<float>("Total")
                         .HasColumnType("real");
 
-                    b.HasKey("OrderId");
+                    b.Property<int>("paymentId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
 
-                    b.HasIndex("PaymentId");
+                    b.HasIndex("paymentId");
 
                     b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("WebStore.Models.PaymentEntity", b =>
                 {
-                    b.Property<int>("PaymentId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("PaymentId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<float>("Amount")
                         .HasColumnType("real");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("LastModified")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime>("PaymentDate")
                         .HasColumnType("timestamp with time zone");
@@ -204,24 +222,33 @@ namespace WebStore.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("PaymentId");
+                    b.HasKey("Id");
 
                     b.ToTable("payments");
                 });
 
             modelBuilder.Entity("WebStore.Models.ProductEntity", b =>
                 {
-                    b.Property<int>("ProdId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ProdId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("BranchID")
                         .HasColumnType("integer");
 
                     b.Property<int>("CategoryID")
                         .HasColumnType("integer");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("LastModified")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<float>("Price")
                         .HasColumnType("real");
@@ -233,7 +260,7 @@ namespace WebStore.Migrations
                     b.Property<int>("SupplierID")
                         .HasColumnType("integer");
 
-                    b.HasKey("ProdId");
+                    b.HasKey("Id");
 
                     b.HasIndex("BranchID");
 
@@ -246,14 +273,11 @@ namespace WebStore.Migrations
 
             modelBuilder.Entity("WebStore.Models.ReviewEntity", b =>
                 {
-                    b.Property<int>("ReviewId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ReviewId"));
-
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("integer");
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("ReviewTime")
                         .HasColumnType("timestamp with time zone");
@@ -262,25 +286,28 @@ namespace WebStore.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("productProdId")
+                    b.Property<int>("customerId")
                         .HasColumnType("integer");
 
-                    b.HasKey("ReviewId");
+                    b.Property<int>("productId")
+                        .HasColumnType("integer");
 
-                    b.HasIndex("CustomerId");
+                    b.HasKey("Id");
 
-                    b.HasIndex("productProdId");
+                    b.HasIndex("customerId");
+
+                    b.HasIndex("productId");
 
                     b.ToTable("reviews");
                 });
 
             modelBuilder.Entity("WebStore.Models.ShoppingCartEntity", b =>
                 {
-                    b.Property<int>("CartId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("CartId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("CustomerId")
                         .HasColumnType("integer");
@@ -288,7 +315,7 @@ namespace WebStore.Migrations
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("timestamp with time zone");
 
-                    b.HasKey("CartId");
+                    b.HasKey("Id");
 
                     b.HasIndex("CustomerId")
                         .IsUnique();
@@ -298,11 +325,11 @@ namespace WebStore.Migrations
 
             modelBuilder.Entity("WebStore.Models.SupplierEntity", b =>
                 {
-                    b.Property<int>("supplierId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("supplierId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("phoneNumber")
                         .HasColumnType("integer");
@@ -315,7 +342,7 @@ namespace WebStore.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("supplierId");
+                    b.HasKey("Id");
 
                     b.ToTable("Suppliers");
                 });
@@ -324,13 +351,13 @@ namespace WebStore.Migrations
                 {
                     b.HasOne("WebStore.Models.OrderEntity", null)
                         .WithMany()
-                        .HasForeignKey("ordersOrderId")
+                        .HasForeignKey("ordersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("WebStore.Models.ProductEntity", null)
                         .WithMany()
-                        .HasForeignKey("productsProdId")
+                        .HasForeignKey("productsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -339,13 +366,13 @@ namespace WebStore.Migrations
                 {
                     b.HasOne("WebStore.Models.ProductEntity", null)
                         .WithMany()
-                        .HasForeignKey("productsProdId")
+                        .HasForeignKey("productsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("WebStore.Models.ShoppingCartEntity", null)
                         .WithMany()
-                        .HasForeignKey("shoppingCartsCartId")
+                        .HasForeignKey("shoppingCartsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -371,7 +398,7 @@ namespace WebStore.Migrations
 
                     b.HasOne("WebStore.Models.PaymentEntity", "payment")
                         .WithMany()
-                        .HasForeignKey("PaymentId")
+                        .HasForeignKey("paymentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -411,13 +438,13 @@ namespace WebStore.Migrations
                 {
                     b.HasOne("WebStore.Models.CustomerEntity", "customer")
                         .WithMany("reviews")
-                        .HasForeignKey("CustomerId")
+                        .HasForeignKey("customerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("WebStore.Models.ProductEntity", "product")
                         .WithMany("reviews")
-                        .HasForeignKey("productProdId")
+                        .HasForeignKey("productId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

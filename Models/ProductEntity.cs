@@ -1,14 +1,13 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using WebStore.Models.Bases;
 
 namespace WebStore.Models
 {
-    public class ProductEntity
+    public class ProductEntity:BaseEntity
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ProdId { get; set; }
+        
         [Required]
         public string ProdName { get; set; }
         [Required]  

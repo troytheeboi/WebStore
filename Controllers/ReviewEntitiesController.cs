@@ -35,7 +35,7 @@ namespace WebStore.Controllers
             }
 
             var reviewEntity = await _context.reviews
-                .FirstOrDefaultAsync(m => m.ReviewId == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (reviewEntity == null)
             {
                 return NotFound();
@@ -55,7 +55,7 @@ namespace WebStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ReviewId,ReviewTime,Status")] ReviewEntity reviewEntity)
+        public async Task<IActionResult> Create([Bind("Id,ReviewTime,Status")] ReviewEntity reviewEntity)
         {
             if (!ModelState.IsValid)
             {
@@ -87,9 +87,9 @@ namespace WebStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ReviewId,ReviewTime,Status")] ReviewEntity reviewEntity)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ReviewTime,Status")] ReviewEntity reviewEntity)
         {
-            if (id != reviewEntity.ReviewId)
+            if (id != reviewEntity.Id)
             {
                 return NotFound();
             }
@@ -103,7 +103,7 @@ namespace WebStore.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ReviewEntityExists(reviewEntity.ReviewId))
+                    if (!ReviewEntityExists(reviewEntity.Id))
                     {
                         return NotFound();
                     }
@@ -126,7 +126,7 @@ namespace WebStore.Controllers
             }
 
             var reviewEntity = await _context.reviews
-                .FirstOrDefaultAsync(m => m.ReviewId == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (reviewEntity == null)
             {
                 return NotFound();
@@ -156,7 +156,7 @@ namespace WebStore.Controllers
 
         private bool ReviewEntityExists(int id)
         {
-            return (_context.reviews?.Any(e => e.ReviewId == id)).GetValueOrDefault();
+            return (_context.reviews?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

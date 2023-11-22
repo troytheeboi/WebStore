@@ -35,7 +35,7 @@ namespace WebStore.Controllers
 
             var shoppingCartEntity = await _context.shoppingCarts
                 .Include(s => s.Customer)
-                .FirstOrDefaultAsync(m => m.CartId == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (shoppingCartEntity == null)
             {
                 return NotFound();
@@ -47,7 +47,7 @@ namespace WebStore.Controllers
         // GET: ShoppingCartEntities/Create
         public IActionResult Create()
         {
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "CustomerId", "FirstName");
+            ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "FirstName");
             return View();
         }
 
@@ -56,7 +56,7 @@ namespace WebStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CartId,DateCreated,CustomerId")] ShoppingCartEntity shoppingCartEntity)
+        public async Task<IActionResult> Create([Bind("Id,DateCreated,CustomerId")] ShoppingCartEntity shoppingCartEntity)
         {
             if (!ModelState.IsValid)
             {
@@ -64,7 +64,7 @@ namespace WebStore.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "CustomerId", "FirstName", shoppingCartEntity.CustomerId);
+            ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "FirstName", shoppingCartEntity.CustomerId);
             return View(shoppingCartEntity);
         }
 
@@ -81,7 +81,7 @@ namespace WebStore.Controllers
             {
                 return NotFound();
             }
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "CustomerId", "FirstName", shoppingCartEntity.CustomerId);
+            ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "FirstName", shoppingCartEntity.CustomerId);
             return View(shoppingCartEntity);
         }
 
@@ -90,9 +90,9 @@ namespace WebStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CartId,DateCreated,CustomerId")] ShoppingCartEntity shoppingCartEntity)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,DateCreated,CustomerId")] ShoppingCartEntity shoppingCartEntity)
         {
-            if (id != shoppingCartEntity.CartId)
+            if (id != shoppingCartEntity.Id)
             {
                 return NotFound();
             }
@@ -106,7 +106,7 @@ namespace WebStore.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ShoppingCartEntityExists(shoppingCartEntity.CartId))
+                    if (!ShoppingCartEntityExists(shoppingCartEntity.Id))
                     {
                         return NotFound();
                     }
@@ -117,7 +117,7 @@ namespace WebStore.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "CustomerId", "FirstName", shoppingCartEntity.CustomerId);
+            ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "FirstName", shoppingCartEntity.CustomerId);
             return View(shoppingCartEntity);
         }
 
@@ -131,7 +131,7 @@ namespace WebStore.Controllers
 
             var shoppingCartEntity = await _context.shoppingCarts
                 .Include(s => s.Customer)
-                .FirstOrDefaultAsync(m => m.CartId == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (shoppingCartEntity == null)
             {
                 return NotFound();
@@ -161,7 +161,7 @@ namespace WebStore.Controllers
 
         private bool ShoppingCartEntityExists(int id)
         {
-            return (_context.shoppingCarts?.Any(e => e.CartId == id)).GetValueOrDefault();
+            return (_context.shoppingCarts?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

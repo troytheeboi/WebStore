@@ -35,7 +35,7 @@ namespace WebStore.Controllers
             }
 
             var paymentEntity = await _context.payments
-                .FirstOrDefaultAsync(m => m.PaymentId == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (paymentEntity == null)
             {
                 return NotFound();
@@ -55,7 +55,7 @@ namespace WebStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PaymentId,Amount,PaymentDate,PaymentMethod")] PaymentEntity paymentEntity)
+        public async Task<IActionResult> Create([Bind("Id,Amount,PaymentDate,PaymentMethod")] PaymentEntity paymentEntity)
         {
             if (!ModelState.IsValid)
             {
@@ -87,9 +87,9 @@ namespace WebStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PaymentId,Amount,PaymentDate,PaymentMethod")] PaymentEntity paymentEntity)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Amount,PaymentDate,PaymentMethod")] PaymentEntity paymentEntity)
         {
-            if (id != paymentEntity.PaymentId)
+            if (id != paymentEntity.Id)
             {
                 return NotFound();
             }
@@ -103,7 +103,7 @@ namespace WebStore.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PaymentEntityExists(paymentEntity.PaymentId))
+                    if (!PaymentEntityExists(paymentEntity.Id))
                     {
                         return NotFound();
                     }
@@ -126,7 +126,7 @@ namespace WebStore.Controllers
             }
 
             var paymentEntity = await _context.payments
-                .FirstOrDefaultAsync(m => m.PaymentId == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (paymentEntity == null)
             {
                 return NotFound();
@@ -156,7 +156,7 @@ namespace WebStore.Controllers
 
         private bool PaymentEntityExists(int id)
         {
-            return (_context.payments?.Any(e => e.PaymentId == id)).GetValueOrDefault();
+            return (_context.payments?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

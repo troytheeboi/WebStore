@@ -35,7 +35,7 @@ namespace WebStore.Controllers
             }
 
             var supplierEntity = await _context.Suppliers
-                .FirstOrDefaultAsync(m => m.supplierId == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (supplierEntity == null)
             {
                 return NotFound();
@@ -55,9 +55,9 @@ namespace WebStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("supplierId,supplierName,phoneNumber,supplierAddress")] SupplierEntity supplierEntity)
+        public async Task<IActionResult> Create([Bind("Id,supplierName,phoneNumber,supplierAddress")] SupplierEntity supplierEntity)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 _context.Add(supplierEntity);
                 await _context.SaveChangesAsync();
@@ -87,14 +87,14 @@ namespace WebStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("supplierId,supplierName,phoneNumber,supplierAddress")] SupplierEntity supplierEntity)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,supplierName,phoneNumber,supplierAddress")] SupplierEntity supplierEntity)
         {
-            if (id != supplierEntity.supplierId)
+            if (id != supplierEntity.Id)
             {
                 return NotFound();
             }
 
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 try
                 {
@@ -103,7 +103,7 @@ namespace WebStore.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SupplierEntityExists(supplierEntity.supplierId))
+                    if (!SupplierEntityExists(supplierEntity.Id))
                     {
                         return NotFound();
                     }
@@ -126,7 +126,7 @@ namespace WebStore.Controllers
             }
 
             var supplierEntity = await _context.Suppliers
-                .FirstOrDefaultAsync(m => m.supplierId == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (supplierEntity == null)
             {
                 return NotFound();
@@ -156,7 +156,7 @@ namespace WebStore.Controllers
 
         private bool SupplierEntityExists(int id)
         {
-            return (_context.Suppliers?.Any(e => e.supplierId == id)).GetValueOrDefault();
+            return (_context.Suppliers?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

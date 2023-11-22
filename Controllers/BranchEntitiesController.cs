@@ -35,7 +35,7 @@ namespace WebStore.Controllers
             }
 
             var branchEntity = await _context.branches
-                .FirstOrDefaultAsync(m => m.BranchId == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (branchEntity == null)
             {
                 return NotFound();
@@ -55,7 +55,7 @@ namespace WebStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("BranchId,Location,capacity,ManagerID")] BranchEntity branchEntity)
+        public async Task<IActionResult> Create([Bind("Id,Location,capacity,ManagerID")] BranchEntity branchEntity)
         {
             if (true)
             {
@@ -87,9 +87,9 @@ namespace WebStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("BranchId,Location,capacity,ManagerID")] BranchEntity branchEntity)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Location,capacity,ManagerID")] BranchEntity branchEntity)
         {
-            if (id != branchEntity.BranchId)
+            if (id != branchEntity.Id)
             {
                 return NotFound();
             }
@@ -103,7 +103,7 @@ namespace WebStore.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!BranchEntityExists(branchEntity.BranchId))
+                    if (!BranchEntityExists(branchEntity.Id))
                     {
                         return NotFound();
                     }
@@ -126,7 +126,7 @@ namespace WebStore.Controllers
             }
 
             var branchEntity = await _context.branches
-                .FirstOrDefaultAsync(m => m.BranchId == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (branchEntity == null)
             {
                 return NotFound();
@@ -156,7 +156,7 @@ namespace WebStore.Controllers
 
         private bool BranchEntityExists(int id)
         {
-            return (_context.branches?.Any(e => e.BranchId == id)).GetValueOrDefault();
+            return (_context.branches?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

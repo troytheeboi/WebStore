@@ -1,12 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using WebStore.Models.Bases;
 
 namespace WebStore.Models
 {
-    public class ShoppingCartEntity
+    public class ShoppingCartEntity:ParentEntity
     {
-        [Key]
-        public int CartId { get; set; }
         [Required]
         public DateTime DateCreated { get; set; }
 

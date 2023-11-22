@@ -1,16 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using WebStore.Models.Bases;
 
 namespace WebStore.Models
 {
-    public class CustomerEntity
+    public class CustomerEntity:PersonEntity
     {
-        [Key]
-        public int CustomerId { get; set; }
-        [Required]
-        public string FirstName { get; set; }
-        [Required]
-        public string LastName { get; set; }
-
         public int Phone { get; set; }
 
         public List<ReviewEntity> reviews { get; set; }

@@ -26,6 +26,18 @@
             <th>
                 @Html.DisplayNameFor(model => model.supplier)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.branch)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedAt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastModified)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmployeeId)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -42,12 +54,24 @@
                 @Html.DisplayFor(modelItem => item.category.CatDescription)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.supplier.supplierId)
+                @Html.DisplayFor(modelItem => item.supplier.Id)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ProdId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ProdId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ProdId">Delete</a>
+                @Html.DisplayFor(modelItem => item.branch.Location)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastModified)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }

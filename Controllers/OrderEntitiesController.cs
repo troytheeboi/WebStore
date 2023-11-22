@@ -35,7 +35,7 @@ namespace WebStore.Controllers
 
             var orderEntity = await _context.Orders
                 .Include(o => o.customer)
-                .FirstOrDefaultAsync(m => m.OrderId == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (orderEntity == null)
             {
                 return NotFound();
@@ -47,7 +47,7 @@ namespace WebStore.Controllers
         // GET: OrderEntities/Create
         public IActionResult Create()
         {
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "CustomerId", "FirstName");
+            ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "FirstName");
             return View();
         }
 
@@ -56,7 +56,7 @@ namespace WebStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("OrderId,OrderDate,Total,CustomerId,Status")] OrderEntity orderEntity)
+        public async Task<IActionResult> Create([Bind("Id,OrderDate,Total,CustomerId,Status")] OrderEntity orderEntity)
         {
             if (!ModelState.IsValid)
             {
@@ -64,7 +64,7 @@ namespace WebStore.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "CustomerId", "FirstName", orderEntity.CustomerId);
+            ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "FirstName", orderEntity.CustomerId);
             return View(orderEntity);
         }
 
@@ -81,7 +81,7 @@ namespace WebStore.Controllers
             {
                 return NotFound();
             }
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "CustomerId", "FirstName", orderEntity.CustomerId);
+            ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "FirstName", orderEntity.CustomerId);
             return View(orderEntity);
         }
 
@@ -90,9 +90,9 @@ namespace WebStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("OrderId,OrderDate,Total,CustomerId,Status")] OrderEntity orderEntity)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,OrderDate,Total,CustomerId,Status")] OrderEntity orderEntity)
         {
-            if (id != orderEntity.OrderId)
+            if (id != orderEntity.Id)
             {
                 return NotFound();
             }
@@ -106,7 +106,7 @@ namespace WebStore.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!OrderEntityExists(orderEntity.OrderId))
+                    if (!OrderEntityExists(orderEntity.Id))
                     {
                         return NotFound();
                     }
@@ -117,7 +117,7 @@ namespace WebStore.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "CustomerId", "FirstName", orderEntity.CustomerId);
+            ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "FirstName", orderEntity.CustomerId);
             return View(orderEntity);
         }
 
@@ -131,7 +131,7 @@ namespace WebStore.Controllers
 
             var orderEntity = await _context.Orders
                 .Include(o => o.customer)
-                .FirstOrDefaultAsync(m => m.OrderId == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (orderEntity == null)
             {
                 return NotFound();
@@ -161,7 +161,7 @@ namespace WebStore.Controllers
 
         private bool OrderEntityExists(int id)
         {
-            return (_context.Orders?.Any(e => e.OrderId == id)).GetValueOrDefault();
+            return (_context.Orders?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

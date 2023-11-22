@@ -35,7 +35,7 @@ namespace WebStore.Controllers
             }
 
             var customerEntity = await _context.Customers
-                .FirstOrDefaultAsync(m => m.CustomerId == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (customerEntity == null)
             {
                 return NotFound();
@@ -55,7 +55,7 @@ namespace WebStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CustomerId,FirstName,LastName,Phone")] CustomerEntity customerEntity)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Phone")] CustomerEntity customerEntity)
         {
             if (true)
             {
@@ -87,9 +87,9 @@ namespace WebStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CustomerId,FirstName,LastName,Phone")] CustomerEntity customerEntity)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,Phone")] CustomerEntity customerEntity)
         {
-            if (id != customerEntity.CustomerId)
+            if (id != customerEntity.Id)
             {
                 return NotFound();
             }
@@ -103,7 +103,7 @@ namespace WebStore.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CustomerEntityExists(customerEntity.CustomerId))
+                    if (!CustomerEntityExists(customerEntity.Id))
                     {
                         return NotFound();
                     }
@@ -126,7 +126,7 @@ namespace WebStore.Controllers
             }
 
             var customerEntity = await _context.Customers
-                .FirstOrDefaultAsync(m => m.CustomerId == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (customerEntity == null)
             {
                 return NotFound();
@@ -156,7 +156,7 @@ namespace WebStore.Controllers
 
         private bool CustomerEntityExists(int id)
         {
-            return (_context.Customers?.Any(e => e.CustomerId == id)).GetValueOrDefault();
+            return (_context.Customers?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

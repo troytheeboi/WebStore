@@ -21,7 +21,7 @@ namespace WebStore.Controllers
         // GET: ProductEntities
         public async Task<IActionResult> Index()
         {
-            var myDbContext = _context.Products.Include(p => p.category).Include(p => p.supplier);
+            var myDbContext = _context.Products.Include(p => p.branch).Include(p => p.category).Include(p => p.supplier);
             return View(await myDbContext.ToListAsync());
         }
 
@@ -34,9 +34,10 @@ namespace WebStore.Controllers
             }
 
             var productEntity = await _context.Products
+                .Include(p => p.branch)
                 .Include(p => p.category)
                 .Include(p => p.supplier)
-                .FirstOrDefaultAsync(m => m.ProdId == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (productEntity == null)
             {
                 return NotFound();
@@ -48,8 +49,9 @@ namespace WebStore.Controllers
         // GET: ProductEntities/Create
         public IActionResult Create()
         {
-            ViewData["CategoryID"] = new SelectList(_context.Categories, "CatId", "CatDescription");
-            ViewData["SupplierID"] = new SelectList(_context.Suppliers, "supplierId", "supplierName");
+            ViewData["BranchID"] = new SelectList(_context.branches, "Id", "Location");
+            ViewData["CategoryID"] = new SelectList(_context.Categories, "Id", "CatDescription");
+            ViewData["SupplierID"] = new SelectList(_context.Suppliers, "Id", "Id");
             return View();
         }
 
@@ -58,7 +60,7 @@ namespace WebStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProdId,ProdName,Price,CategoryID,SupplierID")] ProductEntity productEntity)
+        public async Task<IActionResult> Create([Bind("ProdName,Price,CategoryID,SupplierID,BranchID,CreatedAt,LastModified,EmployeeId,Id")] ProductEntity productEntity)
         {
             if (!ModelState.IsValid)
             {
@@ -66,8 +68,9 @@ namespace WebStore.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryID"] = new SelectList(_context.Categories, "CatId", "CatDescription", productEntity.CategoryID);
-            ViewData["SupplierID"] = new SelectList(_context.Suppliers, "supplierId", "supplierName", productEntity.SupplierID);
+            ViewData["BranchID"] = new SelectList(_context.branches, "Id", "Location", productEntity.BranchID);
+            ViewData["CategoryID"] = new SelectList(_context.Categories, "Id", "CatDescription", productEntity.CategoryID);
+            ViewData["SupplierID"] = new SelectList(_context.Suppliers, "Id", "Id", productEntity.SupplierID);
             return View(productEntity);
         }
 
@@ -84,8 +87,9 @@ namespace WebStore.Controllers
             {
                 return NotFound();
             }
-            ViewData["CategoryID"] = new SelectList(_context.Categories, "CatId", "CatDescription", productEntity.CategoryID);
-            ViewData["SupplierID"] = new SelectList(_context.Suppliers, "supplierId", "supplierName", productEntity.SupplierID);
+            ViewData["BranchID"] = new SelectList(_context.branches, "Id", "Location", productEntity.BranchID);
+            ViewData["CategoryID"] = new SelectList(_context.Categories, "Id", "CatDescription", productEntity.CategoryID);
+            ViewData["SupplierID"] = new SelectList(_context.Suppliers, "Id", "Id", productEntity.SupplierID);
             return View(productEntity);
         }
 
@@ -94,9 +98,9 @@ namespace WebStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProdId,ProdName,Price,CategoryID,SupplierID")] ProductEntity productEntity)
+        public async Task<IActionResult> Edit(int id, [Bind("ProdName,Price,CategoryID,SupplierID,BranchID,CreatedAt,LastModified,EmployeeId,Id")] ProductEntity productEntity)
         {
-            if (id != productEntity.ProdId)
+            if (id != productEntity.Id)
             {
                 return NotFound();
             }
@@ -110,7 +114,7 @@ namespace WebStore.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductEntityExists(productEntity.ProdId))
+                    if (!ProductEntityExists(productEntity.Id))
                     {
                         return NotFound();
                     }
@@ -121,9 +125,9 @@ namespace WebStore.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-
-            ViewData["CategoryID"] = new SelectList(_context.Categories, "CatId", "CatDescription", productEntity.CategoryID);
-            ViewData["SupplierID"] = new SelectList(_context.Suppliers, "supplierId", "supplierName", productEntity.SupplierID);
+            ViewData["BranchID"] = new SelectList(_context.branches, "Id", "Location", productEntity.BranchID);
+            ViewData["CategoryID"] = new SelectList(_context.Categories, "Id", "CatDescription", productEntity.CategoryID);
+            ViewData["SupplierID"] = new SelectList(_context.Suppliers, "Id", "Id", productEntity.SupplierID);
             return View(productEntity);
         }
 
@@ -136,9 +140,10 @@ namespace WebStore.Controllers
             }
 
             var productEntity = await _context.Products
+                .Include(p => p.branch)
                 .Include(p => p.category)
                 .Include(p => p.supplier)
-                .FirstOrDefaultAsync(m => m.ProdId == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (productEntity == null)
             {
                 return NotFound();
@@ -168,7 +173,7 @@ namespace WebStore.Controllers
 
         private bool ProductEntityExists(int id)
         {
-            return (_context.Products?.Any(e => e.ProdId == id)).GetValueOrDefault();
+            return (_context.Products?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

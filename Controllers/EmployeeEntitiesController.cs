@@ -35,7 +35,7 @@ namespace WebStore.Controllers
 
             var employeeEntity = await _context.employees
                 .Include(e => e.branch)
-                .FirstOrDefaultAsync(m => m.EmployeeId == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (employeeEntity == null)
             {
                 return NotFound();
@@ -47,7 +47,7 @@ namespace WebStore.Controllers
         // GET: EmployeeEntities/Create
         public IActionResult Create()
         {
-            ViewData["BranchId"] = new SelectList(_context.branches, "BranchId", "Location");
+            ViewData["BranchId"] = new SelectList(_context.branches, "Id", "Location");
             return View();
         }
 
@@ -56,7 +56,7 @@ namespace WebStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("EmployeeId,FirstName,LastName,Title,Salary,BranchId")] EmployeeEntity employeeEntity)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Title,Salary,BranchId")] EmployeeEntity employeeEntity)
         {
             if (!ModelState.IsValid)
             {
@@ -64,7 +64,7 @@ namespace WebStore.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BranchId"] = new SelectList(_context.branches, "BranchId", "Location", employeeEntity.BranchId);
+            ViewData["BranchId"] = new SelectList(_context.branches, "Id", "Location", employeeEntity.BranchId);
             return View(employeeEntity);
         }
 
@@ -81,7 +81,7 @@ namespace WebStore.Controllers
             {
                 return NotFound();
             }
-            ViewData["BranchId"] = new SelectList(_context.branches, "BranchId", "Location", employeeEntity.BranchId);
+            ViewData["BranchId"] = new SelectList(_context.branches, "Id", "Location", employeeEntity.BranchId);
             return View(employeeEntity);
         }
 
@@ -90,9 +90,9 @@ namespace WebStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("EmployeeId,FirstName,LastName,Title,Salary,BranchId")] EmployeeEntity employeeEntity)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,Title,Salary,BranchId")] EmployeeEntity employeeEntity)
         {
-            if (id != employeeEntity.EmployeeId)
+            if (id != employeeEntity.Id)
             {
                 return NotFound();
             }
@@ -106,7 +106,7 @@ namespace WebStore.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EmployeeEntityExists(employeeEntity.EmployeeId))
+                    if (!EmployeeEntityExists(employeeEntity.Id))
                     {
                         return NotFound();
                     }
@@ -117,7 +117,7 @@ namespace WebStore.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BranchId"] = new SelectList(_context.branches, "BranchId", "Location", employeeEntity.BranchId);
+            ViewData["BranchId"] = new SelectList(_context.branches, "Id", "Location", employeeEntity.BranchId);
             return View(employeeEntity);
         }
 
@@ -131,7 +131,7 @@ namespace WebStore.Controllers
 
             var employeeEntity = await _context.employees
                 .Include(e => e.branch)
-                .FirstOrDefaultAsync(m => m.EmployeeId == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (employeeEntity == null)
             {
                 return NotFound();
@@ -161,7 +161,7 @@ namespace WebStore.Controllers
 
         private bool EmployeeEntityExists(int id)
         {
-            return (_context.employees?.Any(e => e.EmployeeId == id)).GetValueOrDefault();
+            return (_context.employees?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

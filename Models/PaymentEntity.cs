@@ -1,11 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using WebStore.Models.Bases;
 
 namespace WebStore.Models
 {
-    public class PaymentEntity
+    public class PaymentEntity:BaseEntity
     {
-        [Key]
-        public int PaymentId { get; set; }
         [Required]
         public float Amount { get; set; }
         [Required]

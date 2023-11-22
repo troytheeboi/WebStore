@@ -1,12 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using WebStore.Models.Bases;
 
 namespace WebStore.Models
 {
-    public class BranchEntity
+    public class BranchEntity: ParentEntity
     {
-        [Key]
-        public int BranchId { get; set; }
         [Required]
         public string Location { get; set; }
         [Required]

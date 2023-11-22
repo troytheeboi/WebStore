@@ -19,6 +19,9 @@ builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
+app.MapGet("/hello/{name:alpha}", (string name) => $"Hello {name}!");
+
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

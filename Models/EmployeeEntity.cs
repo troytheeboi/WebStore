@@ -1,16 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using WebStore.Models.Bases;
 
 namespace WebStore.Models
 {
-    public class EmployeeEntity
+    public class EmployeeEntity:PersonEntity
     {
-        [Key]
-        public int EmployeeId { get; set; }
-        [Required]
-        public string FirstName { get; set; }
-        [Required]
-        public string LastName { get; set; }
         [Required]
         public string Title { get; set; }
         [Required]
