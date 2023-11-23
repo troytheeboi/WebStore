@@ -13,5 +13,12 @@ namespace WebStore.Models
 
         public List<OrderEntity> orders { get; set; }
 
+/*        public CustomerEntity(string firstName, string lastName,int phone)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            Phone = phone;
+        }
+*/
     }
 }

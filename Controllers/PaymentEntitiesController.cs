@@ -57,7 +57,7 @@ namespace WebStore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Amount,PaymentDate,PaymentMethod")] PaymentEntity paymentEntity)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 _context.Add(paymentEntity);
                 await _context.SaveChangesAsync();
@@ -94,7 +94,7 @@ namespace WebStore.Controllers
                 return NotFound();
             }
 
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 try
                 {
