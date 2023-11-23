@@ -13,6 +13,7 @@ namespace WebStore.Controllers
             _logger = logger;
         }
 
+/*        [Route("/hh")]*/
         public IActionResult Index()
         {
             return View();

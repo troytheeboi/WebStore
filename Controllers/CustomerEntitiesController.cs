@@ -45,7 +45,8 @@ namespace WebStore.Controllers
         }
 
         // GET: CustomerEntities/Create
-        public IActionResult Create()
+/*        [Route("CustomerEntities/cr")]
+*/        public IActionResult Create()
         {
             return View();
         }

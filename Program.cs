@@ -21,7 +21,21 @@ var app = builder.Build();
 
 app.MapGet("/hello/{name:alpha}", (string name) => $"Hello {name}!");
 
+/*app.Use(async (HttpContext context, RequestDelegate next) =>
+{
 
+    await context.Response.WriteAsync("Middle1");
+    await next(context);
+
+});
+
+app.Use(async (HttpContext context, RequestDelegate next) =>
+{
+
+    await context.Response.WriteAsync("Middle2");
+    *//*await next(context);*//*
+
+});*/
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
